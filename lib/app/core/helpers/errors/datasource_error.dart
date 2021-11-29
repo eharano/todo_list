@@ -1,7 +1,7 @@
-import '../../../../../core/helpers/errors/failure.dart';
+import 'failure.dart';
 
-class TodoMapperError extends Failure {
-  TodoMapperError({
+class DataSourceError extends Failure {
+  DataSourceError({
     required String message,
     required StackTrace stackTrace,
   }) : super(

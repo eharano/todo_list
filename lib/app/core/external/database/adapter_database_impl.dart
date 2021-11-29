@@ -18,8 +18,11 @@ class AdapterDatabaseImpl implements AdapterDatabase {
     try {
       return database.insert(table, object);
       // } on TODO validation error
-    } catch (e) {
-      throw DatabaseError();
+    } catch (e, stackTrace) {
+      throw DatabaseError(
+        message: e.toString(),
+        stackTrace: stackTrace,
+      );
     }
   }
 
