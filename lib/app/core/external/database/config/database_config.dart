@@ -1,5 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:todo_list/app/core/external/database/errors/database_error.dart';
 
 class DatabaseConfig {
   DatabaseConfig._internal();
@@ -12,25 +13,37 @@ class DatabaseConfig {
         "STATUS TEXT, "
         "DATA TEXT, "
         "LABEL TEXT, "
-        "DATE_CREATED TEXT, "
-        "DATE_UPDATED TEXT, "
-        "DELETED INT DEFAULT 0, "
+        "DATECREATED TEXT, "
+        "DATEUPDATED TEXT, "
+        "DATEDELETED TEXT, "
         "DELETED_USER INTEGER, "
-        "DELETED_DATE TEXT, "
+        "DELETED INT DEFAULT 0, "
         ")";
 
-    var databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, 'todolist.db');
-    // Delete the database await deleteDatabase(path);
+    try {
+      var databasesPath = await getDatabasesPath();
+      String path = join(databasesPath, 'todolist.db');
+      // Delete the database await deleteDatabase(path);
 
-    Database database = await openDatabase(
-      path,
-      version: 1,
-      onCreate: (Database db, int version) async {
-        await db.execute(sqlTodo);
-      },
-    );
+      Database database = await openDatabase(
+        path,
+        version: 1,
+        onCreate: (Database db, int version) async {
+          await db.execute(sqlTodo);
+        },
+      );
 
-    return database;
+      return database;
+    } on DatabaseException catch (e, stackTrace) {
+      throw DatabaseError(
+        message: e.toString(),
+        stackTrace: stackTrace,
+      );
+    } catch (e, stackTrace) {
+      throw DatabaseError(
+        message: e.toString(),
+        stackTrace: stackTrace,
+      );
+    }
   }
 }

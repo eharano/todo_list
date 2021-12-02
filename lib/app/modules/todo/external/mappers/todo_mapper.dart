@@ -1,5 +1,5 @@
-import 'package:todo_list/app/module/todo/domain/entities/todo.dart';
-import 'package:todo_list/app/module/todo/external/helpers/errors/todo_mapper_error.dart';
+import '../../domain/entities/todo.dart';
+import '../helpers/errors/todo_mapper_error.dart';
 
 class TodoMapper {
   final Map<String, dynamic> map;

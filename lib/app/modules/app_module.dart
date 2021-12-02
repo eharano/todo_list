@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'module/todo/todo_module.dart';
+import 'todo/todo_module.dart';
 
 class AppModule extends Module {
   @override

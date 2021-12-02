@@ -6,18 +6,24 @@ import 'adapter_database.dart';
 class AdapterDatabaseImpl implements AdapterDatabase {
   final Database database;
 
+  @override
+  final String table;
+
+  var time = (DateTime.now()).toString();
+  // var time = (DateTime.now().microsecondsSinceEpoch).toString();
+
   AdapterDatabaseImpl({
     required this.database,
+    required this.table,
   });
 
   @override
   Future<int> insert(
-    String table,
     Map<String, dynamic> object,
   ) {
     try {
+      object['DATE_CREATED'] = time;
       return database.insert(table, object);
-      // } on TODO validation error
     } catch (e, stackTrace) {
       throw DatabaseError(
         message: e.toString(),
@@ -27,42 +33,70 @@ class AdapterDatabaseImpl implements AdapterDatabase {
   }
 
   @override
-  Future<int> delete(
-    String table,
-    String where,
-    List<dynamic> args,
-  ) {
-    // implementar o update de invisibilidade
-    // return update(table, object, where, args);
-    return database.delete(table, where: where, whereArgs: args);
+  Future<int> delete({
+    required String where,
+    required List<dynamic> args,
+  }) {
+    try {
+      // essa ação marca apenas os registros como excluídos
+      var columnsDeleted = {
+        "DELETED": 1,
+        "DELETED_DATE": time,
+      };
+
+      return update(
+        object: columnsDeleted,
+        where: where,
+        args: args,
+      );
+    } catch (e, stackTrace) {
+      throw DatabaseError(
+        message: e.toString(),
+        stackTrace: stackTrace,
+      );
+    }
   }
 
   @override
-  Future<int> update(
-    String table,
-    Map<String, dynamic> object,
-    String where,
-    List<dynamic> args,
-  ) {
-    return database.update(
-      table,
-      object,
-      where: where,
-      whereArgs: args,
-    );
+  Future<int> update({
+    required Map<String, dynamic> object,
+    required String where,
+    required List<dynamic> args,
+  }) {
+    try {
+      object['DATE_UPDATED'] = time;
+
+      return database.update(
+        table,
+        object,
+        where: where,
+        whereArgs: args,
+      );
+    } catch (e, stackTrace) {
+      throw DatabaseError(
+        message: e.toString(),
+        stackTrace: stackTrace,
+      );
+    }
   }
 
   @override
-  Future<List<Map<String, Object?>>> querySql(
-    String sql,
+  Future<List<Map<String, Object?>>> querySql({
+    required String sql,
     List<dynamic>? args,
-  ) {
-    return database.rawQuery(sql, args);
+  }) {
+    try {
+      return database.rawQuery(sql, args);
+    } catch (e, stackTrace) {
+      throw DatabaseError(
+        message: e.toString(),
+        stackTrace: stackTrace,
+      );
+    }
   }
 
   @override
-  Future<List<Map<String, Object?>>> query(
-    String table,
+  Future<List<Map<String, Object?>>> query({
     bool? distinct,
     List<String>? columns,
     String? where,
@@ -72,18 +106,26 @@ class AdapterDatabaseImpl implements AdapterDatabase {
     String? orderBy,
     int? limit,
     int? offset,
-  ) {
-    return database.query(
-      table,
-      distinct: distinct,
-      columns: columns,
-      where: where,
-      whereArgs: args,
-      groupBy: groupBy,
-      having: having,
-      orderBy: orderBy,
-      limit: limit,
-      offset: offset,
-    );
+  }) {
+    try {
+      where = (where != null ? "$where AND " : "") + " DELETED = 0";
+      return database.query(
+        table,
+        distinct: distinct,
+        columns: columns,
+        where: where,
+        whereArgs: args,
+        groupBy: groupBy,
+        having: having,
+        orderBy: orderBy,
+        limit: limit,
+        offset: offset,
+      );
+    } catch (e, stackTrace) {
+      throw DatabaseError(
+        message: e.toString(),
+        stackTrace: stackTrace,
+      );
+    }
   }
 }

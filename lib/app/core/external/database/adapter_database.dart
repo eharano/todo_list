@@ -1,29 +1,27 @@
 abstract class AdapterDatabase {
+  String get table;
+
   Future<int> insert(
-    String table,
     Map<String, dynamic> object,
   );
 
-  Future<int> delete(
-    String table,
-    String where,
-    List<dynamic> args,
-  );
+  Future<int> delete({
+    required String where,
+    required List<dynamic> args,
+  });
 
-  Future<int> update(
-    String table,
-    Map<String, dynamic> object,
-    String where,
-    List<dynamic> args,
-  );
+  Future<int> update({
+    required Map<String, dynamic> object,
+    required String where,
+    required List<dynamic> args,
+  });
 
-  Future<List<Map<String, Object?>>> querySql(
-    String sql,
+  Future<List<Map<String, Object?>>> querySql({
+    required String sql,
     List<dynamic>? args,
-  );
+  });
 
-  Future<List<Map<String, Object?>>> query(
-    String table,
+  Future<List<Map<String, Object?>>> query({
     bool? distinct,
     List<String>? columns,
     String? where,
@@ -33,5 +31,5 @@ abstract class AdapterDatabase {
     String? orderBy,
     int? limit,
     int? offset,
-  );
+  });
 }

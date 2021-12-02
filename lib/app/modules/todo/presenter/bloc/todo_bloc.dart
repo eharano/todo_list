@@ -1,9 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:todo_list/app/module/todo/domain/dtos/todo_dto.dart';
-import 'package:todo_list/app/module/todo/domain/usecases/todo_usecase.dart';
 
 import '../../domain/dtos/todo_paginate_dto.dart';
+import '../../domain/usecases/todo_usecase.dart';
 import '../../domain/entities/todo.dart';
 
 part 'todo_event.dart';
@@ -27,13 +26,22 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       );
     });
 
-    on<TodoPaginateEvent>((event, emit) async {
-      emit((state as TodoSuccessState).copyWith(isLoading: true));
+    on<TodoInsertEvent>((event, emit) async {
+      emit(const TodoLoadingState());
 
-      var response = await usecase(params: event.params);
-      var paginateState = response.fold((left) {
-        // TODO criar o load de erro de acordo com o banco de dados
-      }, (r) => null);
+      // final response = await usecase.call;
+    });
+
+    on<TodoUpdateEvent>((event, emit) async {
+      emit(const TodoLoadingState());
+
+      // final response = await usecase.call;
+    });
+
+    on<TodoDeleteEvent>((event, emit) async {
+      emit(const TodoLoadingState());
+
+      // final response = await usecase.call;
     });
   }
 }
