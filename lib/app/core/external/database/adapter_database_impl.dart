@@ -22,7 +22,7 @@ class AdapterDatabaseImpl implements AdapterDatabase {
     Map<String, dynamic> object,
   ) {
     try {
-      object['DATE_CREATED'] = time;
+      object['DATECREATED'] = time;
       return database.insert(table, object);
     } catch (e, stackTrace) {
       throw DatabaseError(
@@ -41,7 +41,7 @@ class AdapterDatabaseImpl implements AdapterDatabase {
       // essa ação marca apenas os registros como excluídos
       var columnsDeleted = {
         "DELETED": 1,
-        "DELETED_DATE": time,
+        "DATEDELETED": time,
       };
 
       return update(
@@ -64,7 +64,7 @@ class AdapterDatabaseImpl implements AdapterDatabase {
     required List<dynamic> args,
   }) {
     try {
-      object['DATE_UPDATED'] = time;
+      object['DATEUPDATED'] = time;
 
       return database.update(
         table,

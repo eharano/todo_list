@@ -1,3 +1,5 @@
+import 'package:todo_list/app/modules/todo/domain/entities/todo.dart';
+
 class TodoDTO {
   final int? id;
   final String title;
@@ -31,5 +33,27 @@ class TodoDTO {
       data: data ?? this.data,
       label: label ?? this.label,
     );
+  }
+
+  factory TodoDTO.fromEntity(Todo todo) {
+    return TodoDTO(
+      title: todo.title,
+      status: todo.status,
+      data: todo.data,
+      label: todo.label,
+      id: todo.id,
+      description: todo.description ?? "",
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      if (id != null) 'ID': id,
+      'NAME': title,
+      'STATUS': status,
+      'DATA': data,
+      'LABEL': label,
+      'DESCRIPTION': description,
+    };
   }
 }

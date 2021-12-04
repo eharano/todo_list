@@ -27,7 +27,7 @@ class TodoPaginateEvent extends TodoEvent {
 }
 
 class TodoInsertEvent extends TodoEvent {
-  final Todo todo;
+  final TodoDTO todo;
 
   const TodoInsertEvent({
     required this.todo,
@@ -38,7 +38,7 @@ class TodoInsertEvent extends TodoEvent {
 }
 
 class TodoUpdateEvent extends TodoEvent {
-  final Todo todo;
+  final TodoDTO todo;
 
   const TodoUpdateEvent({
     required this.todo,
@@ -49,7 +49,7 @@ class TodoUpdateEvent extends TodoEvent {
 }
 
 class TodoDeleteEvent extends TodoEvent {
-  final Todo todo;
+  final TodoDTO todo;
 
   const TodoDeleteEvent({
     required this.todo,

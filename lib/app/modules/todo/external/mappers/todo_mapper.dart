@@ -11,31 +11,13 @@ class TodoMapper {
   Todo toEntity() {
     try {
       return Todo(
-        id: map['id'],
-        title: map['title'],
-        status: map['status'],
-        data: map['data'],
-        label: map['label'],
+        id: map['ID'],
+        title: map['NAME'],
+        status: map['STATUS'],
+        data: map['DATA'],
+        label: map['LABEL'],
+        description: map['DESCRIPTION'],
       );
-    } catch (e, stackTrace) {
-      throw TodoMapperError(
-        message: e.toString(),
-        stackTrace: stackTrace,
-      );
-    }
-  }
-
-  static Map<String, dynamic> toMap({
-    required Todo todo,
-  }) {
-    try {
-      return {
-        if (todo.id != null) 'id': todo.id,
-        'title': todo.title,
-        'status': todo.status,
-        'data': todo.data,
-        'label': todo.label,
-      };
     } catch (e, stackTrace) {
       throw TodoMapperError(
         message: e.toString(),

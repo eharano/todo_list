@@ -7,7 +7,7 @@ class DatabaseConfig {
 
   static Future<Database> getInstance() async {
     var sqlTodo = "CREATE TABLE TODO ( "
-        "ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, "
+        "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
         "NAME TEXT NOT NULL, "
         "DESCRIPTION TEXT, "
         "STATUS TEXT, "
@@ -17,7 +17,7 @@ class DatabaseConfig {
         "DATEUPDATED TEXT, "
         "DATEDELETED TEXT, "
         "DELETED_USER INTEGER, "
-        "DELETED INT DEFAULT 0, "
+        "DELETED INTEGER DEFAULT 0 "
         ")";
 
     try {

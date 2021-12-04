@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:todo_list/app/modules/todo/external/mappers/todo_mapper.dart';
 
 import '../../../../core/helpers/errors/failure.dart';
+import '../../domain/dtos/todo_dto.dart';
 import '../../domain/dtos/todo_paginate_dto.dart';
 import '../../domain/entities/todo.dart';
 import '../../domain/repositories/todo_repository.dart';
@@ -29,38 +29,36 @@ class TodoRepositoryImpl implements TodoRepository {
     }
   }
 
+  @override
   Future<Either<Failure, Todo>> insert({
-    required Todo todo,
+    required TodoDTO todoDTO,
   }) async {
     try {
-      Map<String, dynamic> todoMap = TodoMapper.toMap(todo: todo);
-      var response = await datasource.insert(map: todoMap);
+      var response = await datasource.insert(map: todoDTO.toMap());
       return Right(response);
     } on Failure catch (error) {
       return Left(error);
     }
   }
 
+  @override
   Future<Either<Failure, Todo>> update({
-    required Todo todo,
+    required TodoDTO todoDTO,
   }) async {
     try {
-      var response = await datasource.update(
-        map: TodoMapper.toMap(todo: todo),
-      );
+      var response = await datasource.update(map: todoDTO.toMap());
       return Right(response);
     } on Failure catch (error) {
       return Left(error);
     }
   }
 
+  @override
   Future<Either<Failure, bool>> delete({
-    required Todo todo,
+    required TodoDTO todoDTO,
   }) async {
     try {
-      var response = await datasource.delete(
-        map: TodoMapper.toMap(todo: todo),
-      );
+      var response = await datasource.delete(map: todoDTO.toMap());
       return Right(response);
     } on Failure catch (error) {
       return Left(error);
