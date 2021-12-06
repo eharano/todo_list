@@ -32,9 +32,16 @@ class TodoLocalDatasourceImpl implements TodoLocalDatasource {
   }
 
   @override
-  Future<bool> delete({required Map<String, dynamic> map}) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<bool> delete({required Map<String, dynamic> map}) async {
+    const String where = "id = ?";
+    final List<dynamic> args = [1];
+
+    final int result = await adapter.delete(
+      where: where,
+      args: args,
+    );
+
+    return result == 1;
   }
 
   @override
@@ -50,5 +57,12 @@ class TodoLocalDatasourceImpl implements TodoLocalDatasource {
   Future<Todo> update({required Map<String, dynamic> map}) {
     // TODO: implement update
     throw UnimplementedError();
+
+    // final int result = await adapter.update(
+    //   object: object,
+    //   where: where,
+    //   args: args,);
+
+    // return TodoMapper(map: map).toEntity();
   }
 }
