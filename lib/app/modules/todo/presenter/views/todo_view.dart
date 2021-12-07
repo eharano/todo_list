@@ -60,7 +60,7 @@ class _TodoViewState extends ModularState<TodoView, TodoBloc> {
           bottom: 40.0,
         ),
         children: [
-          for (int i = 0; i < 100; i++) Text("MInha lista $i"),
+          for (int i = 0; i < 100; i++) Text("Minha lista $i"),
         ],
       ),
       floatingActionButton: FloatingActionButton(
