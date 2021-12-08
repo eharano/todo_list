@@ -1,19 +1,32 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/todo.dart';
+import 'todo_card_widget.dart';
 
-class TodoList extends StatelessWidget {
-  final Todo todo;
+class TodoListWidget extends StatelessWidget {
+  final List<Todo> todos;
 
-  const TodoList({
+  const TodoListWidget({
     Key? key,
-    required this.todo,
+    required this.todos,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Row(),
+    return ListView(
+      padding: const EdgeInsets.only(
+        left: 20.0,
+        right: 20.0,
+        bottom: 40.0,
+      ),
+      children: List.generate(
+        10,
+        (index) => TodoCardWidget(
+          todoTag: (index % 2 == 0) ? TodoTag.cinema : TodoTag.corrida,
+          title: "Teste $index",
+          description: "descricao da atividade",
+        ),
+      ),
     );
   }
 }
