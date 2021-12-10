@@ -59,17 +59,29 @@ class TodoBarWidget extends PreferredSize {
                               TodoBarOptionTextWidget(
                                 counter: controller.aFazer.toString(),
                                 description: "A Fazer",
-                                iconPosition: 0,
+                                icon: const Icon(
+                                  Icons.update,
+                                  color: Colors.grey,
+                                  size: 35.0,
+                                ),
                               ),
                               TodoBarOptionTextWidget(
                                 counter: controller.andamento.toString(),
                                 description: "Em andamento",
-                                iconPosition: 1,
+                                icon: Icon(
+                                  Icons.replay_outlined,
+                                  color: Colors.blueAccent[400],
+                                  size: 35.0,
+                                ),
                               ),
                               TodoBarOptionTextWidget(
                                 counter: controller.finalizado.toString(),
                                 description: "Concluído",
-                                iconPosition: 2,
+                                icon: const Icon(
+                                  Icons.public,
+                                  color: Colors.green,
+                                  size: 35.0,
+                                ),
                               ),
                             ],
                           ),
@@ -87,19 +99,13 @@ class TodoBarWidget extends PreferredSize {
 class TodoBarOptionTextWidget extends StatelessWidget {
   final String counter;
   final String description;
-  final int iconPosition;
+  final Icon icon;
 
-  final List<Map<String, dynamic>> _listIcons = [
-    {'icon': Icons.update, 'color': Colors.grey},
-    {'icon': Icons.replay_outlined, 'color': Colors.blueAccent[400]},
-    {'icon': Icons.public, 'color': Colors.green},
-  ];
-
-  TodoBarOptionTextWidget({
+  const TodoBarOptionTextWidget({
     Key? key,
     required this.counter,
     required this.description,
-    required this.iconPosition,
+    required this.icon,
   }) : super(key: key);
 
   @override
@@ -107,11 +113,7 @@ class TodoBarOptionTextWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
-          _listIcons[iconPosition]['icon'],
-          color: _listIcons[iconPosition]['color'],
-          size: 35.0,
-        ),
+        icon,
         Text(
           counter,
           style: const TextStyle(

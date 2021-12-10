@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
 import 'package:todo_list/app/modules/todo/domain/dtos/todo_dto.dart';
 
 import '../../domain/dtos/todo_paginate_dto.dart';

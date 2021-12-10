@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:todo_list/app/modules/todo/presenter/views/todo_edit_view.dart';
 
 import '../../../../app_theme.dart';
 import '../../domain/dtos/todo_dto.dart';
@@ -19,34 +20,6 @@ class _TodoViewState extends ModularState<TodoView, TodoBloc> {
   @override
   initState() {
     super.initState();
-    // controller
-  }
-
-  insertTodo() {
-    Todo todo = const Todo(
-      title: 'teste de todo',
-      status: 'a fazer',
-      data: '02/12/2021',
-      label: 'Programação',
-    );
-
-    controller.add(TodoInsertEvent(
-      todo: TodoDTO.fromEntity(todo),
-    ));
-  }
-
-  deleteTodo() {
-    Todo todo = const Todo(
-      id: 1,
-      title: 'teste de todo',
-      status: 'a fazer',
-      data: '02/12/2021',
-      label: 'Programação',
-    );
-
-    // controller.delete(TodoDeleteEvent(
-    //   todo: TodoDTO.fromEntity(todo),
-    // ));
   }
 
   @override
@@ -60,7 +33,14 @@ class _TodoViewState extends ModularState<TodoView, TodoBloc> {
       ),
       floatingActionButton: FloatingActionButton(
           backgroundColor: AppTheme.cDefault,
-          onPressed: () => {},
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return const TodoEditView();
+              },
+            );
+          },
           child: const Icon(
             Icons.add,
             color: Colors.white,

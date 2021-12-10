@@ -51,6 +51,19 @@ extension TodoTagType on TodoTag {
     }
   }
 
+  String get text {
+    switch (this) {
+      case TodoTag.corrida:
+        return "Corrida";
+      case TodoTag.leitura:
+        return "Leitura";
+      case TodoTag.cinema:
+        return "Cinema";
+      case TodoTag.reuniao:
+        return "Reunião";
+    }
+  }
+
   Color get color {
     switch (this) {
       case TodoTag.corrida:
